@@ -1,18 +1,16 @@
 <template>
   <v-layout class="job-filter" wrap>
-    <v-flex md10 sm10>
-      <div class="filter-title">Filter by</div>
-    </v-flex>
 
-    <v-flex md2 sm2 align-self-center>
-      <v-spacer></v-spacer>
-      <v-icon small class="clear-all-icon" title="Clear all filter">mdi-close-circle</v-icon>
+    <v-flex xs12 md12 sm12 align-self-center pt-2>
+      <div class="filter-title">Filter by
+         <v-icon small class="clear-all-icon" title="Clear all filter">mdi-close-circle</v-icon>
+      </div>
     </v-flex>
 
     <v-flex md12 sm12 pt-3>
       <v-select
-        class="filter-select"
-        v-model="a1"
+        dense
+        class="filter-combobox"
         :items="occupations"
         :menu-props="{ bottom: true, offsetY: true }"
         multiple
@@ -20,12 +18,24 @@
         outlined
         label="Occupation"
         hide-details
-      ></v-select>
+        v-model="a1"
+      >
+      <!-- <template v-slot:selection="{ item, index }">
+        <v-chip v-if="index === 0">
+          <span>{{ item }}</span>
+        </v-chip>
+        <span
+          v-if="index === 1"
+          class="grey--text caption"
+        >(+{{ occupations.length - 1 }} others)</span>
+      </template> -->
+      </v-select>
     </v-flex>
 
-    <v-flex md12 pt-2>
+    <v-flex md12 sm12 pt-2>
       <v-select
-        class="filter-select"
+        dense
+        class="filter-combobox"
         v-model="a2"
         :items="employments"
         :menu-props="{ bottom: true, offsetY: true }"
@@ -37,9 +47,10 @@
       ></v-select>
     </v-flex>
 
-    <v-flex md12 pt-2>
+    <v-flex md12 sm12 pt-2>
       <v-select
-        class="filter-select"
+        dense
+        class="filter-combobox"
         v-model="a3"
         :items="locations"
         :menu-props="{ bottom: true, offsetY: true }"
@@ -51,9 +62,10 @@
       ></v-select>
     </v-flex>
 
-    <v-flex md12 pt-2>
+    <v-flex md12 sm12 pt-2>
       <v-select
-        class="filter-select"
+        dense
+        class="filter-combobox"
         v-model="a4"
         :items="salaries"
         :menu-props="{ bottom: true, offsetY: true }"
@@ -104,14 +116,46 @@ export default {
   }
 
   .filter-title {
-    display: block;
-    // margin-bottom: 15px;
     padding-top: 4px;
     padding-left: 1px;
     font-weight: 600;
     font-size: 13px !important;
     letter-spacing: 0.4px;
     color: #9DA0A4;
+    width: 100%;
   }
+
+  .filter-combobox {
+    .v-label {
+      font-size: 14px;
+    }
+    &.v-input {
+      font-size: 12px !important;
+      .v-select__selection--comma {
+        font-weight: 600;
+      }
+    }
+    &.v-text-field--outlined .v-label {
+      top: 15px;
+    }
+    &.v-text-field--outlined .v-label--active.v-label {
+      top: 18px;
+    }
+    
+    .v-select.v-text-field input {
+      padding: unset !important;
+    }
+    .v-select.v-text-field--outlined:not(.v-text-field--single-line) .v-select__selections {
+     padding: unset !important;
+    }
+
+    .v-input__slot {
+      min-height: 40px !important;
+    }
+    .v-input__append-inner {
+      margin-top: 12px !important;
+    }
+  }
+  
 }
 </style>

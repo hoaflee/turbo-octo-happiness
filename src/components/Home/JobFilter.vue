@@ -1,15 +1,15 @@
 <template>
   <v-layout class="job-filter" wrap>
-    <v-flex md10>
+    <v-flex md10 sm10>
       <div class="filter-title">Filter by</div>
     </v-flex>
 
-    <v-flex md2 align-self-center>
+    <v-flex md2 sm2 align-self-center>
       <v-spacer></v-spacer>
       <v-icon small class="clear-all-icon" title="Clear all filter">mdi-close-circle</v-icon>
     </v-flex>
 
-    <v-flex md12 pt-3>
+    <v-flex md12 sm12 pt-3>
       <v-select
         class="filter-select"
         v-model="a1"
@@ -23,7 +23,7 @@
       ></v-select>
     </v-flex>
 
-    <v-flex md12 pt-3>
+    <v-flex md12 pt-2>
       <v-select
         class="filter-select"
         v-model="a2"
@@ -37,7 +37,7 @@
       ></v-select>
     </v-flex>
 
-    <v-flex md12 pt-3>
+    <v-flex md12 pt-2>
       <v-select
         class="filter-select"
         v-model="a3"
@@ -51,7 +51,7 @@
       ></v-select>
     </v-flex>
 
-    <v-flex md12 pt-3>
+    <v-flex md12 pt-2>
       <v-select
         class="filter-select"
         v-model="a4"

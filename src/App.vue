@@ -1,66 +1,74 @@
 <template>
   <v-app>
-    <v-app-bar app light color='white'>
+    <v-app-bar class="main-app-bar" app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Premival</span>
 
         <!-- <span class="font-weight-light">MATERIAL DESIGN</span> -->
       </v-toolbar-title>
 
-      <v-toolbar-items class="ml-4 toolbar-items-menu">
+      <v-toolbar-items class="ml-4 toolbar-items-menu hidden-sm-and-down">
         <v-btn text large color="primary">News Feed</v-btn>
         <v-btn text large color="primary">Company Reviews</v-btn>
         <v-btn text large color="primary">Find Salaries</v-btn>
       </v-toolbar-items>
 
       <v-autocomplete
+        class="search ml-4"
         v-model="select"
         :loading="loading"
         :items="items"
         :search-input.sync="search"
         cache-items
-        
+        append-icon="mdi-magnify"
         flat
         hide-no-data
         hide-details
+        clearable
         label="Search people, jobs and companies"
-        solo-inverted
+        solo
       ></v-autocomplete>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-message-text-outline</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-account-tie</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-bell-outline</v-icon>
-      </v-btn>
+      <UserMenu v-if="!isMobile"/>
 
-      <v-btn icon flat>
-        <v-avatar size="30">
-          <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar" />
-        </v-avatar>
-      </v-btn>
     </v-app-bar>
 
-    <v-content>
-      <HelloWorld />
+    <v-content class="white-background-content">
+      <MainPanel />
     </v-content>
+
+    <v-bottom-navigation
+      v-if="isMobile"
+      :value="activeBtn"
+      grow
+      color="primary"
+    >
+      <UserMenu/>
+    </v-bottom-navigation>
+    
+    <v-divider></v-divider>
+
+    <Footer v-if="!isMobile"/>
+
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import MainPanel from "./components/Home/";
+import UserMenu from "./components/UserMenu";
+import Footer from "./components/Footer";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    MainPanel,
+    UserMenu,
+    Footer
   },
   data: () => ({
+    activeBtn: 1,
     loading: false,
     items: [],
     search: null,
@@ -127,10 +135,18 @@ export default {
       "Wyoming"
     ]
   }),
+  computed: {
+    isMobile () {
+      return this.$vuetify.breakpoint.smAndDown;
+    }
+  },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val);
     }
+  },
+  mounted () {
+    // console.log(this.$vuetify.breakpoint)
   },
   methods: {
     querySelections(v) {
@@ -147,11 +163,34 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+.main-app-bar.v-toolbar {
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+  -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+}
+
 .toolbar-items-menu {
   .v-btn {
     text-transform: unset;
     letter-spacing: unset;
   }
+  .v-btn:not(.v-btn--round).v-size--large {
+    padding: 0 10px;
+  }
+}
+
+.search.v-autocomplete {
+  .v-input__control .v-input__slot {
+    background: #f3f1f1 !important;
+  }
+  .v-input__icon--append .v-icon {
+    -webkit-transform: unset !important;
+    transform: unset !important;
+  }
+}
+
+.white-background-content {
+  background: white;
 }
 </style>

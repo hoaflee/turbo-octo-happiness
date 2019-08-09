@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-sm>
+  <v-container fluid grid-list-md>
     <v-layout justify-center>
       <v-flex xs12 sm6 md10 lg10 xl8>
          <v-layout wrap>
@@ -12,9 +12,7 @@
           </v-flex>
 
           <v-flex xs12 sm6 md7>
-            <v-card color="green lighten-2" dark>
-              <v-card-text>{{ lorem }}</v-card-text>
-            </v-card>
+            <JobList/>
           </v-flex>
 
           <v-flex xs12 sm6 md2 class="hidden-sm-and-down">
@@ -30,11 +28,13 @@
 
 <script>
 import JobFilter from "./JobFilter";
+import JobList from "./JobList";
 import Other from "./Other";
 
 export default {
   components: {
     JobFilter,
+    JobList,
     Other
   },
   data: () => ({

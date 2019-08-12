@@ -1,50 +1,57 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout class="job-list" column>
-      <v-flex xs12 md12 sm12 pt-2>
-        <div class="new-style projects-index-menu" style>
-          <p class="projects-count">
-            <span class="current">10</span>
-            <span class="per">/</span>
-            <span class="total">1050</span>
-          </p>
+      <v-flex xs12 md12 sm12 mb-3 class="project-info">
+        <v-container fluid>
+          <v-layout row>
+            <v-flex md6>
+              <p class="projects-count">
+                <span class="current">10</span>
+                <span class="per">/</span>
+                <span class="total">1050</span>
+              </p>
+            </v-flex>
 
-          <div class="projects-index-sort-menu cf">
-            <ul>
-              <li>
-                <a class="sort-link-popular">Popular</a>
-              </li>
-              <li>
-                <a class="sort-link-recent">Newest</a>
-              </li>
-              <li class="selected">
-                <a class="selected sort-link-mixed">Recommended</a>
-              </li>
-            </ul>
-            <h4>Sort</h4>
-          </div>
-        </div>
+            <v-spacer></v-spacer>
+
+            <v-flex md5>
+              <div class="projects-index-sort-menu">
+                <ul>
+                  <li>
+                    <a class="sort-link-popular">Popular</a>
+                  </li>
+                  <li>
+                    <a class="sort-link-recent">Newest</a>
+                  </li>
+                  <li class="selected">
+                    <a class="selected sort-link-mixed">Recommended</a>
+                  </li>
+                </ul>
+                <h4>Sort</h4>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </v-flex>
 
       <!-- Job item list -->
       <v-flex xs12 md12 sm12 pt-2>
-        <template v-for="(item, idx) in jobItems" >
-          <JobItem :key="idx"/>
-          <v-divider :key="idx" class="mb-10"></v-divider>
+        <template v-for="(item, idx) in jobItems">
+          <JobItem :key="'item_' + idx" />
+          <v-divider :key="'divider_' + idx" class="mb-8" v-if="idx <= jobItems.length - 2"></v-divider>
         </template>
-        
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import JobItem from "./JobItem";
+import JobItem from "../Common/JobItem";
 
 export default {
-  components: {JobItem},
+  components: { JobItem },
   data: () => ({
-    jobItems: [1,2]
+    jobItems: [1, 2, 3, 4]
   }),
   computed: {
     example() {
@@ -55,20 +62,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.projects-index-menu {
-  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans",
-    "ヒラギノ角ゴシック", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ Pro W3",
-    Roboto, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+.job-list {
+  
+  .project-info {
+    border-bottom: 2px solid #f5f5f5;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans",
+      "ヒラギノ角ゴシック", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ Pro W3",
+      Roboto, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif !important;
+    
+    .container {
+      padding: 0 0 16px 0 !important;
+    }
+  }
 
-  padding-top: 7px;
+  p.projects-count {
+    margin-bottom: 0px;
+  }
+
   .projects-count {
-    float: left;
-    margin-top: 7px;
+    // float: left;
+    margin-top: 12px;
     font-size: 14px;
     line-height: 14px;
     font-weight: 400;
     color: #999;
-    -webkit-font-smoothing: antialiased;
 
     .current {
       font-size: 12px;
@@ -85,17 +102,10 @@ export default {
   }
 
   .projects-index-sort-menu {
-    padding-bottom: 18px;
-    border-bottom: 2px solid #f5f5f5;
     font-size: 14px;
     line-height: 22px;
     ul {
-      display: inline;
-      margin-block-start: 1em;
-      margin-block-end: 1em;
-      margin-inline-start: 0px;
-      margin-inline-end: 0px;
-      padding-inline-start: 40px;
+      margin-top: 6px;
       li {
         float: right;
         font-size: 14px;
@@ -117,7 +127,7 @@ export default {
       }
     }
     h4 {
-      float: right;
+      // float: right;
       display: inline;
       margin-right: 23px;
       font-weight: normal;
@@ -126,4 +136,5 @@ export default {
     }
   }
 }
+
 </style>

@@ -1,44 +1,56 @@
 <template>
-  <v-container fluid grid-list-md>
-    <v-layout justify-center>
-      <v-flex xs12 sm6 md10 lg10 xl8>
-         <v-layout wrap>
+  <MenuBarMainPage>
+    <template v-slot:content>
+      <v-container fluid grid-list-md>
+        <v-layout justify-center>
+          <v-flex xs12 sm6 md10 lg10 xl8>
+            <router-view />
+            
+            <v-layout wrap v-if="isHomePage">
+              <v-flex xs12 sm6 md3>
+                <JobFilter/>
+              </v-flex>
 
-          <v-flex xs12 sm6 md3>
-            <JobFilter/>
-            <!-- <v-card color="indigo" dark>
-              <v-card-text>{{ lorem.slice(0, 70) }}</v-card-text>
-            </v-card> -->
+              <v-flex xs12 sm6 md7>
+                <JobList />
+              </v-flex>
+
+              <v-flex xs12 sm6 md2 class="hidden-sm-and-down">
+                <HomeRightPanel/>
+              </v-flex>
+            </v-layout>
           </v-flex>
-
-          <v-flex xs12 sm6 md7>
-            <JobList/>
-          </v-flex>
-
-          <v-flex xs12 sm6 md2 class="hidden-sm-and-down">
-            <Other/>
-          </v-flex>
-
-         </v-layout>
-
-      </v-flex>
-    </v-layout>
-  </v-container>
+        </v-layout>
+      </v-container>
+    </template>
+  </MenuBarMainPage>
 </template>
 
 <script>
 import JobFilter from "./JobFilter";
 import JobList from "./JobList";
-import Other from "./Other";
+import HomeRightPanel from "./HomeRightPanel";
+
+import MenuBarMainPage from "../Common/MenuBarMainPage";
 
 export default {
   components: {
+    MenuBarMainPage,
     JobFilter,
     JobList,
-    Other
+    HomeRightPanel
   },
-  data: () => ({
-    lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
-  }),
+  data: () => ({}),
+  computed: {
+    isHomePage () {
+      if (this.$route.name == 'home') return true;
+      return false;
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+			console.log(this.$route);
+		});
+  },
 };
 </script>

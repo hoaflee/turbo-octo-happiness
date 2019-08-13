@@ -26,7 +26,7 @@
 
         <v-chip outlined color="blue-grey" class="mr-2">
           <v-avatar left>
-            <v-icon>mdi-file-document-box-outline</v-icon>
+            <v-icon>mdi-worker</v-icon>
           </v-avatar>
           IT - Software
         </v-chip>
@@ -304,20 +304,6 @@ export default {
       cursor: pointer;
       &:hover {
         color: #006f8e;
-      }
-    }
-    .job-sub-info .v-list-item {
-      padding: unset;
-      min-height: 32px;
-      .body-2 {
-        font-weight: 500;
-        &.salary {
-          color: #ff5252;
-        }
-      }
-
-      .v-list-item__icon {
-        margin: 4px 8px 4px 0;
       }
     }
     .job-short-desc {

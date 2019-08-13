@@ -14,13 +14,13 @@
                   <router-link to="/about">About Us</router-link>
                 </li>
                 <li>
-                  <router-link to="/user_terms">Terms of Services</router-link>
+                  <router-link to="/terms">Terms of Services</router-link>
                 </li>
                 <li>
-                  <router-link to="/helps_center">Helps Center</router-link>
+                  <router-link to="/helps">Helps Center</router-link>
                 </li>
                 <li>
-                  <router-link to="/privacy_policy">Policy & Privacy</router-link>
+                  <router-link to="/privacy">Policy & Privacy</router-link>
                 </li>
                 <!-- <li>
                   <router-link to="/for_employers">For employers</router-link>

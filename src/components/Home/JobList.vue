@@ -12,9 +12,9 @@
               </p>
             </v-flex>
 
-            <v-spacer></v-spacer>
+            <!-- <v-spacer></v-spacer> -->
 
-            <v-flex md5>
+            <v-flex md6>
               <div class="projects-index-sort-menu">
                 <ul>
                   <li>

@@ -4,15 +4,15 @@
       <v-layout justify-center class="about-page">
         <v-flex xs10 sm6 md8 lg8 xl6>
           <article class="markdown-body">
-            <h1>TẦM NHÌN</h1>
+            <h1>Tầm nhìn</h1>
             <p>Bài toán về nhân sự đã có từ rất rất lâu, thậm chí từ khi xuất hiện hình thức sở hữu tư liệu sản xuất. Trải qua rất nhiều thay đổi, qua nhiều hình thức; từ truyền miệng, viết bảng tin, báo chí, truyền hình và cho đến hiện tại là thông qua internet. Chúng tôi hiểu được rằng thị trường lao động ngày càng được phát triển, đặt ra những tiêu chuẩn mới cho các ứng viên.</p>
             <p>Premival nhận định thị trường về nguồn lao động sẽ còn tồn tại vài chục năm sắp tới hoặc mãi về sau. Vậy nên chúng tôi không đi tắt đón đầu, không chớp thời cơ mà thay vào đó là sự bền vững để phát triển. Giá trị được tạo nên từ chất lượng của sản phẩm dịch vụ, thay vì theo xu hướng cạnh tranh.</p>
             <p>Xu hướng xã hội trong tương lai là hướng đến những công việc có trình độ cao, có thu nhập tốt, chế độ đãi ngộ tương xứng, qua đó đòi hỏi nhân sự có những năng lực phù hợp với vị trí tương đương. Premival hướng vào phân khúc nhân sự cấp cao. Khi con người đều hướng đến sự thành công, sự cao cấp và hoàn mỹ. Đó cũng là khát vọng là mục tiêu trong mỗi cá nhân đều hướng tới.</p>
-            <h1>SỨ MỆNH</h1>
+            <h1>Sứ mệnh</h1>
             <p>Trước sự phát triển mạnh mẽ của xã hội toàn cầu, Premival mong muốn sẽ đóng góp một phần nhỏ bé vào sự phát triển chung của thị trường nhân sự cấp cao. Hy vọng giúp được nhà tuyển dụng tìm được cho mình những nhân sự tốt nhất. Cũng mong sẽ giúp các ứng viên thăng tiến trong hành trình xây dựng sự nghiệp bản thân, bước thêm một nấc thang trong sự nghiệp.</p>
             <p>Tầm nhìn trong 10 năm tới, chúng tôi hy vọng thu nhập bình quân đầu người (GDP) sẽ tăng lên, con người sẽ hướng tới những công việc tốt hơn. Premival mang tới một nền tảng định hình những công việc chất lượng, những nhân sự top đầu, những ứng viên ngàn đô. Cũng như tạo nên các tiêu chuẩn mới trong phân khúc nhân sự cấp cao.</p>
             <p>Premival luôn sát cánh hỗ trợ các nhà tuyển dụng trong tìm kiếm nhân viên tài hoa, sẽ cùng đồng hành với các ứng viên trong từng nốt thăng sự nghiệp. Hẹn bạn trên đỉnh thành công (‘see you at the top’).</p>
-            <h1>GIỚI THIỆU</h1>
+            <h1>Giới thiệu</h1>
             <h2>PREMIVAL là gì?</h2>
             <p>Premival là một nền tảng giúp nhà tuyển dụng kết nối với các ứng viên tài năng, giúp nhân tài thêm bước tiến trong hành trình sự nghiệp. Slogan của Premival là “Kết sự nghiệp, nối thành công”.</p>
             <h2>Sự Hình Thành</h2>

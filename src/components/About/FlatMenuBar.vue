@@ -60,7 +60,7 @@ footer {
   margin: 32px auto;
   padding-bottom: 64px;
   max-width: 800px;
-  font-family: 'Poppins', sans-serif;
+  // font-family: 'Poppins', sans-serif;
   .lftPane {
     float: left;
     display: flex;
@@ -76,7 +76,8 @@ footer {
 }
 
 .markdown-body {
-  font-family: "Lato", sans-serif;
+  // font-family: "Lato", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.72;
   color: rgba(0, 0, 0, 0.84);

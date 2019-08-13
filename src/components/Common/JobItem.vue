@@ -10,13 +10,51 @@
       </v-img>
 
       <div class="job-category-chip">
-        <v-chip outlined color="orange" class="mr-2">5:30PM</v-chip>
-        <v-chip outlined color="green" class="mr-2">7:30PM</v-chip>
-        <v-chip outlined color="orange" class="mr-2">8:00PM</v-chip>
-        <v-chip outlined color="puple" class="mr-2">9:00PM</v-chip>
+        <v-chip outlined color="primary" class="mr-2">
+          <v-avatar left>
+            <v-icon>mdi-map-marker-outline</v-icon>
+          </v-avatar>
+          Ho Chi Minh
+        </v-chip>
+
+        <v-chip outlined color="deep-orange" class="mr-2">
+          <v-avatar left>
+            <v-icon>mdi-wallet-travel</v-icon>
+          </v-avatar>
+          Manager          
+        </v-chip>
+
+        <v-chip outlined color="blue-grey" class="mr-2">
+          <v-avatar left>
+            <v-icon>mdi-file-document-box-outline</v-icon>
+          </v-avatar>
+          IT - Software
+        </v-chip>
+
+        <v-chip outlined color="error" class="mr-2">
+          <v-avatar left>
+            <v-icon>mdi-coin</v-icon>
+          </v-avatar>
+          $2,000 - $3,000
+        </v-chip>
       </div>
 
       <div class="title job-title">Network & Desk Technician ($20.00 Per Hour)</div>
+      <!-- <div class="job-sub-info">
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-map-marker-outline</v-icon>
+          </v-list-item-icon>
+          <div class="body-2">Ho Chi Minh</div>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-diamond-outline</v-icon>
+          </v-list-item-icon>
+          <div class="body-2 salary">$2,000 - $3,000</div>
+        </v-list-item>
+      </div> -->
 
       <div
         class="job-short-desc"
@@ -83,8 +121,8 @@ export default {
   methods: {
     goToJobDetail() {
       // alert('zzzzz');
-      var jobId = 'abc'
-      this.$router.push({ path: `/job/${jobId}` })
+      var jobId = "abc";
+      this.$router.push({ path: `/job/${jobId}` });
     },
     getRandomAvatar() {
       const atts = {
@@ -258,18 +296,28 @@ export default {
         color: #006f8e;
       }
     }
-
     .job-category-chip {
       line-height: 40px;
       padding: 10px 0 5px 0;
-      // .v-chip {
-      //   padding-top: 5px;
-      // }
     }
     .job-title {
       cursor: pointer;
       &:hover {
         color: #006f8e;
+      }
+    }
+    .job-sub-info .v-list-item {
+      padding: unset;
+      min-height: 32px;
+      .body-2 {
+        font-weight: 500;
+        &.salary {
+          color: #ff5252;
+        }
+      }
+
+      .v-list-item__icon {
+        margin: 4px 8px 4px 0;
       }
     }
     .job-short-desc {

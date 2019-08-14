@@ -1,7 +1,7 @@
 <template>
   <v-card flat class="mx-auto mb-4 job-item">
     <div class="job-pannel" @click="goToJobDetail()">
-      <v-img class="white--text" height="250px" :src="imgSrc">
+      <v-img class="white--text" height="250px" :src="jobImg">
         <template v-slot:placeholder>
           <v-layout fill-height align-center justify-center ma-0>
             <v-progress-circular indeterminate color="blue lighten-4"></v-progress-circular>
@@ -10,55 +10,40 @@
       </v-img>
 
       <div class="job-category-chip">
-        <v-chip outlined color="primary" class="mr-2">
+        <v-chip outlined color="primary" class="mr-2" v-if="jobTag.location">
           <v-avatar left>
             <v-icon>mdi-map-marker-outline</v-icon>
           </v-avatar>
-          Ho Chi Minh
+          {{jobTag.location}}
         </v-chip>
 
-        <v-chip outlined color="deep-orange" class="mr-2">
+        <v-chip outlined color="deep-orange" class="mr-2" v-if="jobTag.level">
           <v-avatar left>
             <v-icon>mdi-wallet-travel</v-icon>
           </v-avatar>
-          Manager          
+          {{jobTag.level}}
         </v-chip>
 
-        <v-chip outlined color="blue-grey" class="mr-2">
+        <v-chip outlined color="blue-grey" class="mr-2" v-if="jobTag.industry">
           <v-avatar left>
             <v-icon>mdi-worker</v-icon>
           </v-avatar>
-          IT - Software
+          {{jobTag.industry}}
         </v-chip>
 
-        <v-chip outlined color="error" class="mr-2">
+        <v-chip outlined color="error" class="mr-2" v-if="jobTag.salary">
           <v-avatar left>
             <v-icon>mdi-coin</v-icon>
           </v-avatar>
-          $2,000 - $3,000
+          {{jobTag.salary}}
         </v-chip>
       </div>
 
-      <div class="title job-title">Network & Desk Technician ($20.00 Per Hour)</div>
-      <!-- <div class="job-sub-info">
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-map-marker-outline</v-icon>
-          </v-list-item-icon>
-          <div class="body-2">Ho Chi Minh</div>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-diamond-outline</v-icon>
-          </v-list-item-icon>
-          <div class="body-2 salary">$2,000 - $3,000</div>
-        </v-list-item>
-      </div> -->
+      <div class="title job-title">{{data.title}}</div>
 
       <div
         class="job-short-desc"
-      >The Desktop Support Specialist provides support services for users in the Divisions of Information Technology, Administration and Finance, Athletics, and the President's Office, and Athletics.</div>
+      >{{jobDes}}</div>
     </div>
 
     <v-card-actions class="job-action">
@@ -67,14 +52,13 @@
           <v-list-item>
             <v-list-item-avatar height="50" width="50" color>
               <!-- class="elevation-6" tạo shadow css -->
-              <v-img :src="getRandomAvatar()"></v-img>
-              <!-- https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light -->
+              <v-img :src="ownerAvatar"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title class="subtitle-1">Our Changing Planet</v-list-item-title>
+              <v-list-item-title class="subtitle-1">{{data.ownerName}}</v-list-item-title>
               <v-list-item-subtitle class="job-post-time">
-                <v-icon small class="pr-1">mdi-clock-outline</v-icon>by Kurt Wagner
+                <v-icon small class="pr-1">mdi-clock-outline</v-icon>{{UpdateTime}}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -97,188 +81,66 @@
 </template>
 
 <script>
-// const moment = require("moment");
-const _ = require("lodash");
+const htmlToText = require('html-to-text');
 
 export default {
+  props: ['data'],
   components: {},
   data: () => ({
-    selection: 1,
-    imgSrc:
-      "https://picsum.photos/730/250?random=" +
-      Math.floor(Math.random() * 10 + 1)
   }),
   computed: {
-    // example () {
-    //   return null;
-    // }
+    jobDes () {
+      let text = htmlToText.fromString(this.data.description, {
+        wordwrap: 130
+      });
+      let textArr = text.split(' ');
+      if (textArr.length > 40) {
+        text = textArr.slice(0, 40).join(' ') + ' ...';
+      }
+      return text;
+    },
+    jobTag() {
+      const jobSubInfo = {
+        location: null,
+        industry: null,
+        level: null,
+        salary: null,
+      }
+      if (this.data.locations.length > 0) {
+        jobSubInfo.location = this.data.locations[0].label;
+      }
+      if (this.data.industries.length > 0) {
+        jobSubInfo.industry = this.data.industries[0].label;
+      }
+      if (this.data.levels.length > 0) {
+        jobSubInfo.level = this.data.levels[0].label;
+      }
+      if (this.data.salaries.length > 0) {
+        jobSubInfo.salary = this.data.salaries[0].label;
+      }
+      return jobSubInfo
+    },
+    ownerAvatar () {
+      return 'https://scontent.premival.com/images/users/' + this.data.profileId + '/' + this.data.ownerAvatar;
+      // return this.$store.getters['common/getRandomAvatarUrl']
+    },
+    jobImg () {
+      return this.data.image ?  this.data.image : this.$store.getters['common/getRandomImgUrl'](730,250)
+    },
+    UpdateTime() {
+      return this.$store.getters['common/getLastUpdate'](this.data.createDate)
+    }
   },
   watch: {
-    // example() {
-    // }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.data);
+  },
   methods: {
     goToJobDetail() {
       // alert('zzzzz');
       var jobId = "abc";
       this.$router.push({ path: `/job/${jobId}` });
-    },
-    getRandomAvatar() {
-      const atts = {
-        accessoriesType: [
-          "Blank",
-          "Kurt",
-          "Prescription01",
-          "Prescription02",
-          "Round",
-          "Sunglasses",
-          "Wayfarers"
-        ],
-        avatarStyle: ["Transparent", "Circle"], //"Circle",
-        clotheColor: ["PastelRed"],
-        clotheType: [
-          "BlazerShirt",
-          "BlazerSweater",
-          "CollarSweater",
-          "GraphicShirt",
-          "Hoodie",
-          "Overall",
-          "ShirtCrewNeck",
-          "ShirtScoopNeck",
-          "ShirtVNeck"
-        ],
-        eyeType: [
-          "Close",
-          "Cry",
-          "Default",
-          "Dizzy",
-          "EyeRoll",
-          "Happy",
-          "Hearts",
-          "Side",
-          "Squint",
-          "Surprised",
-          "Wink",
-          "WinkWacky"
-        ],
-        eyebrowType: [
-          "Angry",
-          "AngryNatural",
-          "Default",
-          "DefaultNatural",
-          "FlatNatural",
-          "RaisedExcited",
-          "RaisedExcitedNatural",
-          "SadConcerned",
-          "SadConcernedNatural",
-          "UnibrowNatural",
-          "UpDown",
-          "UpDownNatural"
-        ],
-        facialHairColor: [
-          "Auburn",
-          "Black",
-          "Blonde",
-          "BlondeGolden",
-          "Brown",
-          "BrownDark",
-          "Platinum",
-          "Red"
-        ],
-        facialHairType: [
-          "Blank",
-          "BeardMedium",
-          "BeardLight",
-          "BeardMagestic",
-          "MoustacheFancy",
-          "MoustacheMagnum"
-        ],
-        graphicType: ["Resist"],
-        hairColor: [
-          "Auburn",
-          "Black",
-          "Blonde",
-          "BlondeGolden",
-          "Brown",
-          "BrownDark",
-          "PastelPink",
-          "Platinum",
-          "Red",
-          "SilverGray"
-        ],
-        hatColor: ["PastelBlue"],
-        mouthType: [
-          "Concerned",
-          "Default",
-          "Disbelief",
-          "Eating",
-          "Grimace",
-          "Sad",
-          "ScreamOpen",
-          "Serious",
-          "Smile",
-          "Tongue",
-          "Twinkle",
-          "Vomit"
-        ],
-        skinColor: [
-          "Tanned",
-          "Yellow",
-          "Pale",
-          "Light",
-          "Brown",
-          "DarkBrown",
-          "Black"
-        ],
-        topType: [
-          "NoHair",
-          "Eyepatch",
-          "Hat",
-          "Hijab",
-          "Turban",
-          "WinterHat1",
-          "WinterHat2",
-          "WinterHat3",
-          "WinterHat4",
-          "LongHairBigHair",
-          "LongHairBob",
-          "LongHairBun",
-          "LongHairCurly",
-          "LongHairCurvy",
-          "LongHairDreads",
-          "LongHairFrida",
-          "LongHairFro",
-          "LongHairFroBand",
-          "LongHairNotTooLong",
-          "LongHairShavedSides",
-          "LongHairMiaWallace",
-          "LongHairStraight",
-          "LongHairStraight2",
-          "LongHairStraightStrand",
-          "ShortHairDreads01",
-          "ShortHairDreads02",
-          "ShortHairFrizzle",
-          "ShortHairShaggyMullet",
-          "ShortHairShortCurly",
-          "ShortHairShortFlat",
-          "ShortHairShortRound",
-          "ShortHairShortWaved",
-          "ShortHairSides",
-          "ShortHairTheCaesar",
-          "ShortHairTheCaesarSidePart"
-        ]
-      };
-
-      let avatarUrl = "https://avataaars.io/?";
-      for (const [key, value] of Object.entries(atts)) {
-        avatarUrl = avatarUrl + key + "=" + _.sample(value) + "&";
-        // console.log(key, value);
-      }
-
-      // console.log(avatarUrl);
-
-      return avatarUrl;
     }
     // example() {
     // }

@@ -1,14 +1,26 @@
 <template>
   <v-layout justify-end>
-    <v-btn icon class="mr-2">
-      <v-icon>mdi-message-text-outline</v-icon>
-    </v-btn>
+    <v-badge color="error" overlap="overlap" class="align-self-center notify">
+      <template v-slot:badge>
+        <span>3</span>
+      </template>
+      <v-btn icon class="mr-2">
+        <v-icon>mdi-message-text-outline</v-icon>
+      </v-btn>
+    </v-badge>
+
     <v-btn icon class="mr-2">
       <v-icon>mdi-account-tie</v-icon>
     </v-btn>
-    <v-btn icon class="mr-2">
-      <v-icon>mdi-bell-outline</v-icon>
-    </v-btn>
+
+    <v-badge color="error" overlap="overlap" class="align-self-center notify">
+      <template v-slot:badge>
+        <span>8</span>
+      </template>
+      <v-btn icon class="mr-2">
+        <v-icon>mdi-bell-outline</v-icon>
+      </v-btn>
+    </v-badge>
 
     <v-menu
       nudge-bottom="12"
@@ -84,6 +96,13 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.notify.v-badge--overlap .v-badge__badge {
+  top: 0;
+  right: 8px;
+}
+</style>
+
 <style lang="scss" scoped>
 .menu-card {
   .edit-profile {
@@ -94,7 +113,7 @@ export default {
     .v-list-item__subtitle {
       font-size: 11px;
       font-weight: 400;
-      color: #9DA0A4;
+      color: #9da0a4;
     }
   }
   .menu-list {

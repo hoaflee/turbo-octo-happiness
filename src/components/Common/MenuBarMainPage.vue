@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar class="main-app-bar" app>
-      <v-toolbar-title class="headline text-uppercase hidden-sm-and-down">
+      <v-toolbar-title class="headline text-uppercase hidden-sm-and-down" @click="goHome()">
         <span>Premival</span>
       </v-toolbar-title>
 
@@ -137,6 +137,9 @@ export default {
     // console.log(this.$vuetify.breakpoint)
   },
   methods: {
+    goHome() {
+      this.$router.push({ path: `/` })
+    },
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query
@@ -156,6 +159,9 @@ export default {
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  .v-toolbar__title {
+    cursor: pointer;
+  }
 }
 
 .toolbar-items-menu {

@@ -6,9 +6,11 @@
       color="white"
       class="about-menu-bar"
     >
-      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+      <div class="text-center mr-4 premival-icon" @click="goHome()">
+        <img height="40" src="@/assets/logo_64.png/" alt="Premival">
+      </div>
 
-      <v-toolbar-title class="headline text-uppercase" @click="goHome()">Premival</v-toolbar-title>
+      <v-toolbar-title class="headline" @click="goHome()">Premival</v-toolbar-title>
     </v-app-bar>
 
     <v-container class="mt-12">
@@ -51,7 +53,7 @@ export default {
 .white-background-content {
   background: white;
   .about-menu-bar {
-    .v-toolbar__title {
+    .v-toolbar__title, .premival-icon {
       cursor: pointer;
     }
   }

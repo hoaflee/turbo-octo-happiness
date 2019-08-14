@@ -2,7 +2,7 @@
   <div>
     <v-app-bar class="main-app-bar" app>
       <div class="text-center mr-4 premival-icon">
-        <img height="40" src="@/assets/logo_64.png/" alt="Premival">
+        <img height="40" src="@/assets/logo_64.png/" alt="Premival" @click="goHome()">
       </div>
       <v-toolbar-title class="headline hidden-sm-and-down" @click="goHome()">
         <span>Premival</span>

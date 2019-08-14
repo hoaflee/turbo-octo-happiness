@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="mx-auto mb-4 job-item">
-    <div class="job-pannel" @click="goToJobDetail()">
+    <div class="job-pannel" @click="openJobDetail()">
       <v-img class="white--text" height="250px" :src="jobImg">
         <template v-slot:placeholder>
           <v-layout fill-height align-center justify-center ma-0>
@@ -41,9 +41,7 @@
 
       <div class="title job-title">{{data.title}}</div>
 
-      <div
-        class="job-short-desc"
-      >{{jobDes}}</div>
+      <div class="job-short-desc">{{jobDes}}</div>
     </div>
 
     <v-card-actions class="job-action">
@@ -58,7 +56,8 @@
             <v-list-item-content>
               <v-list-item-title class="subtitle-1">{{data.ownerName}}</v-list-item-title>
               <v-list-item-subtitle class="job-post-time">
-                <v-icon small class="pr-1">mdi-clock-outline</v-icon>{{UpdateTime}}
+                <v-icon small class="pr-1">mdi-clock-outline</v-icon>
+                {{UpdateTime}}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -81,21 +80,20 @@
 </template>
 
 <script>
-const htmlToText = require('html-to-text');
+const htmlToText = require("html-to-text");
 
 export default {
-  props: ['data'],
+  props: ["data"],
   components: {},
-  data: () => ({
-  }),
+  data: () => ({}),
   computed: {
-    jobDes () {
+    jobDes() {
       let text = htmlToText.fromString(this.data.description, {
         wordwrap: 130
       });
-      let textArr = text.split(' ');
+      let textArr = text.split(" ");
       if (textArr.length > 40) {
-        text = textArr.slice(0, 40).join(' ') + ' ...';
+        text = textArr.slice(0, 40).join(" ") + " ...";
       }
       return text;
     },
@@ -104,8 +102,8 @@ export default {
         location: null,
         industry: null,
         level: null,
-        salary: null,
-      }
+        salary: null
+      };
       if (this.data.locations.length > 0) {
         jobSubInfo.location = this.data.locations[0].label;
       }
@@ -118,82 +116,41 @@ export default {
       if (this.data.salaries.length > 0) {
         jobSubInfo.salary = this.data.salaries[0].label;
       }
-      return jobSubInfo
+      return jobSubInfo;
     },
-    ownerAvatar () {
-      return 'https://scontent.premival.com/images/users/' + this.data.profileId + '/' + this.data.ownerAvatar;
-      // return this.$store.getters['common/getRandomAvatarUrl']
+    ownerAvatar() {
+      return (
+        "https://scontent.premival.com/images/users/" +
+        this.data.profileId +
+        "/" +
+        this.data.ownerAvatar
+      );
     },
-    jobImg () {
-      return this.data.image ?  this.data.image : this.$store.getters['common/getRandomImgUrl'](730,250)
+    jobImg() {
+      return this.data.image
+        ? this.data.image
+        : this.$store.getters["common/getRandomImgUrl"](730, 250);
     },
     UpdateTime() {
-      return this.$store.getters['common/getLastUpdate'](this.data.createDate)
+      return this.$store.getters["common/getLastUpdate"](this.data.createDate);
     }
   },
-  watch: {
-  },
+  watch: {},
   mounted() {
-    // console.log(this.data);
+    console.log(this.data);
   },
   methods: {
-    goToJobDetail() {
-      // alert('zzzzz');
-      var jobId = "abc";
-      this.$router.push({ path: `/job/${jobId}` });
+    goToCompanyPage() {
+      // let title = encodeURIComponent(this.data.title);
+      // this.$router.push({ path: `/job/${this.data.id}/${title}` });
+    },
+    openJobDetail() {
+      this.data.jobTag = this.jobTag;
+      this.data.jobImg = this.jobImg;
+      this.data.ownerAvatar = this.ownerAvatar;
+      this.data.UpdateTime = this.UpdateTime;
+      this.$emit("openDialog", this.data);
     }
-    // example() {
-    // }
   }
 };
 </script>
-
-<style lang="scss">
-.job-item {
-  .job-pannel {
-    cursor: pointer;
-    &:hover,
-    &:focus {
-      .job-title {
-        color: #006f8e;
-      }
-    }
-    .job-category-chip {
-      line-height: 40px;
-      padding: 10px 0 5px 0;
-    }
-    .job-title {
-      cursor: pointer;
-      &:hover {
-        color: #006f8e;
-      }
-    }
-    .job-short-desc {
-      padding-top: 5px;
-      line-height: 1.5;
-      color: #9da0a4;
-      font-size: 14px;
-      font-weight: 400;
-      word-wrap: break-word;
-    }
-    .v-image {
-      border-radius: 2px;
-    }
-  }
-  .job-action {
-    padding: 0;
-    .v-avatar {
-      margin-right: 12px;
-    }
-    .v-list-item {
-      padding: 5px 0 0 0;
-    }
-    .v-list-item__content {
-      width: 50%;
-    }
-    .job-post-time {
-      font-size: 12px;
-    }
-  }
-}
-</style>

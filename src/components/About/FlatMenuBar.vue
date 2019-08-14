@@ -7,7 +7,7 @@
       class="about-menu-bar"
     >
       <div class="text-center mr-4 premival-icon" @click="goHome()">
-        <img height="40" src="@/assets/logo_64.png/" alt="Premival">
+        <img height="40" src="@/assets/logo_v3_64.png/" alt="Premival">
       </div>
 
       <v-toolbar-title class="headline" @click="goHome()">Premival</v-toolbar-title>

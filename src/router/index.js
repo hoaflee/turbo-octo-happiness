@@ -20,7 +20,7 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/job/:id',
+          path: '/job/:id/:jobTitle',
           name: 'jobDetail',
           component: JobDetail
         }

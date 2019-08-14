@@ -40,7 +40,7 @@
 
       <v-flex xs12 md12 sm12 pt-2>
         <template v-for="(item, idx) in jobItems">
-          <JobItem :key="'item_' + idx" :data="item" />
+          <JobItem :key="'item_' + idx" :data="item" @openDialog="jobDetail" />
           <v-divider :key="'divider_' + idx" class="mb-8" v-if="idx <= jobItems.length - 2"></v-divider>
         </template>
       </v-flex>
@@ -53,20 +53,29 @@
         </div>
       </v-flex>
     </v-layout>
+
+    <v-dialog
+      v-model="jobDialogDetail"
+      width="50%">
+      <JobDetailCard :data="JobDetailCardData"/>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import JobItem from "../Common/JobItem";
+import JobDetailCard from "../Common/JobDetailCard";
 
 export default {
-  components: { JobItem },
+  components: { JobItem, JobDetailCard },
   data: () => ({
+    jobDialogDetail: false,
     loading: true,
     jobItems: [],
     // currentPageIndex: 0,
-    page: 1
+    page: 1,
+    JobDetailCardData: {}
   }),
   computed: {
     example() {
@@ -74,15 +83,20 @@ export default {
     }
   },
   watch: {
-    page: function (val) {
+    page: function(val) {
       // alert(val)
       this.loading = true;
-      this.getJobList(val)
+      this.getJobList(val);
     }
   },
   methods: {
+    jobDetail(data) {
+      this.JobDetailCardData = data;
+      console.log(this.JobDetailCardData);
+      this.jobDialogDetail = true;
+    },
     scrollToTop() {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     },
     getJobList(page) {
       const postData = {
@@ -110,6 +124,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .job-list {
   .project-info {
     border-bottom: 2px solid #f5f5f5;
@@ -179,6 +194,56 @@ export default {
       font-weight: normal;
       font-size: 12px;
       color: #9da0a4;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.job-item, .job-card-detail {
+  .job-pannel {
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      .job-title {
+        color: #006f8e;
+      }
+    }
+    .job-category-chip {
+      line-height: 40px;
+      padding: 10px 0 5px 0;
+    }
+    .job-title {
+      cursor: pointer;
+      &:hover {
+        color: #006f8e;
+      }
+    }
+    .job-short-desc {
+      padding-top: 5px;
+      line-height: 1.5;
+      color: #9da0a4;
+      font-size: 14px;
+      font-weight: 400;
+      word-wrap: break-word;
+    }
+    .v-image {
+      border-radius: 2px;
+    }
+  }
+  .job-action {
+    padding: 0;
+    .v-avatar {
+      margin-right: 12px;
+    }
+    .v-list-item {
+      padding: 5px 0 0 0;
+    }
+    .v-list-item__content {
+      width: 50%;
+    }
+    .job-post-time {
+      font-size: 12px;
     }
   }
 }

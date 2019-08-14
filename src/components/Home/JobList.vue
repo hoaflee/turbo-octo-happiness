@@ -3,11 +3,7 @@
     <v-layout class="job-list" column>
       <v-flex xs12 md12 sm12 mb-3 class="project-info">
         <v-layout v-if="loading">
-          <v-progress-linear
-            color="deep-purple accent-4"
-            indeterminate
-            rounded
-          ></v-progress-linear>
+          <v-progress-linear color="deep-purple accent-4" indeterminate rounded></v-progress-linear>
         </v-layout>
 
         <v-container fluid v-else>
@@ -44,7 +40,7 @@
 
       <v-flex xs12 md12 sm12 pt-2>
         <template v-for="(item, idx) in jobItems">
-          <JobItem :key="'item_' + idx" :data='item'/>
+          <JobItem :key="'item_' + idx" :data="item" />
           <v-divider :key="'divider_' + idx" class="mb-8" v-if="idx <= jobItems.length - 2"></v-divider>
         </template>
       </v-flex>
@@ -53,11 +49,7 @@
 
       <v-flex xs12 md12 sm12 pt-6 v-if="!loading">
         <div class="text-center">
-          <v-pagination
-            v-model="page"
-            :length="15"
-            :total-visible="7"
-          ></v-pagination>
+          <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
         </div>
       </v-flex>
     </v-layout>
@@ -73,7 +65,7 @@ export default {
   data: () => ({
     loading: true,
     jobItems: [],
-    currentPageIndex: 0,
+    // currentPageIndex: 0,
     page: 1
   }),
   computed: {
@@ -81,22 +73,38 @@ export default {
       return null;
     }
   },
+  watch: {
+    page: function (val) {
+      // alert(val)
+      this.loading = true;
+      this.getJobList(val)
+    }
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
+    getJobList(page) {
+      const postData = {
+        currentPageIndex: page - 1,
+        langId: null,
+        pageSize: 10,
+        profileId: ""
+      };
+      axios
+        .post("https://api.premival.com/job", postData)
+        .then(response => {
+          this.jobItems = response.data.datas.jobDetails;
+          this.loading = false;
+          this.scrollToTop();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
   mounted() {
-    const postData = {
-      currentPageIndex: this.currentPageIndex,
-      langId: null,
-      pageSize: 10,
-      profileId: ""
-    };
-    axios
-      .post("https://api.premival.com/job", postData)
-      .then(response => {
-        this.jobItems = response.data.datas.jobDetails;
-        this.loading = false;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.getJobList(this.page);
   }
 };
 </script>

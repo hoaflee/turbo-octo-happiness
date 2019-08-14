@@ -134,7 +134,7 @@ export default {
   watch: {
   },
   mounted() {
-    console.log(this.data);
+    // console.log(this.data);
   },
   methods: {
     goToJobDetail() {

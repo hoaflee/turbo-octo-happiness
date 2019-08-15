@@ -21,8 +21,11 @@
       <v-btn small icon color="primary">
         <v-icon>mdi-facebook</v-icon>
       </v-btn>
-      <v-btn small icon color="primary" class="mr-4">
+      <v-btn small icon color="primary" class="mr-2">
         <v-icon>mdi-twitter</v-icon>
+      </v-btn>
+      <v-btn icon small depressed class="mr-2" @click="closeDialog">
+        <v-icon color="error" dark>mdi-close-circle-outline</v-icon>
       </v-btn>
     </v-card-actions>
 
@@ -33,22 +36,21 @@
     <v-divider></v-divider>
 
     <v-card-actions>
-      <v-btn depressed color="primary">
-        <v-icon dark class="mr-2">mdi-send</v-icon>Apply
+      <v-btn depressed outlined color="primary">
+        <v-icon class="mr-2">mdi-send</v-icon>Apply
       </v-btn>
 
       <v-spacer></v-spacer>
-      <v-btn text depressed color="primary">
-        <v-icon class="mr-2">mdi-thumb-up-outline</v-icon>Recommend
+      <v-btn icon small depressed class="mr-2" color="primary">
+        <v-icon>mdi-thumb-up-outline</v-icon>
       </v-btn>
-      <v-btn text depressed color="primary">
-        <v-icon class="mr-2">mdi-bookmark-outline</v-icon>Bookmark
+      <v-btn icon small depressed class="mr-2" color="primary">
+        <v-icon>mdi-bookmark-outline</v-icon>
       </v-btn>
-      <v-btn text depressed color="primary">
-        <v-icon class="mr-2">mdi-share-variant</v-icon>Share
+      <v-btn icon small depressed class="mr-2" color="primary">
+        <v-icon>mdi-share-variant</v-icon>
       </v-btn>
 
-      <!-- <v-btn color="primary" text @click="jobDialogDetail = false">I accept</v-btn> -->
     </v-card-actions>
   </v-card>
 </template>
@@ -57,7 +59,7 @@
 export default {
   props: ["data"],
   components: {},
-  data: () => ({})
+  data: () => ({}),
   //   computed: {
   //     example () {
   //       return null;
@@ -69,10 +71,11 @@ export default {
   //   },
   //   mounted () {
   //   },
-  //   methods: {
-  //     example(val) {
-  //     }
-  //   }
+    methods: {
+      closeDialog() {
+        this.$emit('closeDialog');
+      }
+    }
 };
 </script>
 

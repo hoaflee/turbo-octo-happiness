@@ -55,9 +55,13 @@
     </v-layout>
 
     <v-dialog
+      scrollable
+      :fullscreen="isMobile"
       v-model="jobDialogDetail"
       width="50%">
-      <JobDetailCard :data="JobDetailCardData"/>
+      <JobDetailCard
+        :data="JobDetailCardData"
+        @closeDialog="jobDialogDetail = !jobDialogDetail"/>
     </v-dialog>
   </v-container>
 </template>
@@ -78,8 +82,8 @@ export default {
     JobDetailCardData: {}
   }),
   computed: {
-    example() {
-      return null;
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
     }
   },
   watch: {

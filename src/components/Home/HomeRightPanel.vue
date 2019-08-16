@@ -1,6 +1,7 @@
 <template>
   <v-layout column>
     <v-flex md12 class="pt-10 mt-4"></v-flex>
+
     <v-flex md12 class="pt-2 pl-4" v-for="(item, idx) in items" :key="idx">
       <v-hover v-slot:default="{ hover }">
         <v-card class="mx-auto" height="200" outlined :elevation="hover ? 10 : 0">

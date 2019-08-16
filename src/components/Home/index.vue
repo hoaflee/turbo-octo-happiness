@@ -49,7 +49,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-			// console.log(this.$route);
+      // console.log(this.$route);
+      window.scrollTo(0,0);
 		});
   },
 };

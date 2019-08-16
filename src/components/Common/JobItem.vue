@@ -48,15 +48,15 @@
       <v-layout row wrap>
         <v-flex md9 sm12>
           <v-list-item>
-            <v-list-item-avatar height="50" width="50" color>
+            <v-list-item-avatar height="50" width="50" color @click="$emit('goToComPage')">
               <!-- class="elevation-6" tạo shadow css -->
               <v-img :src="ownerAvatar"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title class="subtitle-1">{{data.ownerName}}</v-list-item-title>
+              <v-list-item-title class="subtitle-1 company-name" @click="$emit('goToComPage')">{{data.ownerName}}</v-list-item-title>
               <v-list-item-subtitle class="job-post-time">
-                <v-icon small class="pr-1">mdi-clock-outline</v-icon>
+                <v-icon small class>mdi-calendar-month-outline</v-icon>
                 {{UpdateTime}}
               </v-list-item-subtitle>
             </v-list-item-content>
@@ -64,15 +64,9 @@
         </v-flex>
 
         <v-flex md3 sm12 align-self-center right>
-          <v-btn small icon>
-            <v-icon>mdi-thumb-up-outline</v-icon>
-          </v-btn>
-          <v-btn small icon>
-            <v-icon>mdi-bookmark-outline</v-icon>
-          </v-btn>
-          <v-btn small icon class="mr-2">
-            <v-icon>mdi-share-variant</v-icon>
-          </v-btn>
+          <v-icon title="Recommend" class="mx-2 icon-action">mdi-thumb-up-outline</v-icon>
+          <v-icon title="Bookmark" class="mx-2 icon-action">mdi-bookmark-outline</v-icon>
+          <v-icon title="Share" class="mx-2 icon-action">mdi-share-variant</v-icon>
         </v-flex>
       </v-layout>
     </v-card-actions>

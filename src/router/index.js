@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home/index.vue'
 import JobDetail from '@/components/Job/index.vue'
+import CompanyHomePage from '@/components/Company/index.vue'
 
 import About from '@/components/About/About.vue'
 import Terms from '@/components/About/Terms.vue'
@@ -23,6 +24,11 @@ export default new Router({
           path: '/job/:id/:jobTitle',
           name: 'jobDetail',
           component: JobDetail
+        },
+        {
+          path: '/company/:id/:name',
+          name: 'Company',
+          component: CompanyHomePage
         }
       ],
       meta: {
@@ -60,7 +66,8 @@ export default new Router({
       meta: {
         title: null
       }
-    }
+    },
+
     // {
     //   path: '/about',
     //   name: 'about',

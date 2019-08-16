@@ -40,7 +40,11 @@
 
       <v-flex xs12 md12 sm12 pt-2>
         <template v-for="(item, idx) in jobItems">
-          <JobItem :key="'item_' + idx" :data="item" @openDialog="jobDetail" />
+          <JobItem
+            :key="'item_' + idx"
+            :data="item"
+            @openDialog="jobDetail"
+            @goToComPage="toComPage(item.profileId, item.ownerName)"/>
           <v-divider :key="'divider_' + idx" class="mb-8" v-if="idx <= jobItems.length - 2"></v-divider>
         </template>
       </v-flex>
@@ -54,14 +58,11 @@
       </v-flex>
     </v-layout>
 
-    <v-dialog
-      scrollable
-      :fullscreen="isMobile"
-      v-model="jobDialogDetail"
-      width="50%">
+    <v-dialog scrollable :fullscreen="isMobile" v-model="jobDialogDetail" width="50%">
       <JobDetailCard
         :data="JobDetailCardData"
-        @closeDialog="jobDialogDetail = !jobDialogDetail"/>
+        @goToComPage="toComPage(JobDetailCardData.profileId, JobDetailCardData.ownerName)"
+        @closeDialog="jobDialogDetail = !jobDialogDetail" />
     </v-dialog>
   </v-container>
 </template>
@@ -94,6 +95,11 @@ export default {
     }
   },
   methods: {
+    toComPage(comId, comName) {
+      // alert(profileId);
+      let name = encodeURIComponent(comName);
+      this.$router.push({ path: `/company/${comId}/${name}` });
+    },
     jobDetail(data) {
       this.JobDetailCardData = data;
       console.log(this.JobDetailCardData);
@@ -128,7 +134,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .job-list {
   .project-info {
     border-bottom: 2px solid #f5f5f5;
@@ -204,7 +209,8 @@ export default {
 </style>
 
 <style lang="scss">
-.job-item, .job-card-detail {
+.job-item,
+.job-card-detail {
   .job-pannel {
     cursor: pointer;
     &:hover,
@@ -249,6 +255,19 @@ export default {
     .job-post-time {
       font-size: 12px;
     }
+  }
+
+  .icon-action.v-icon {
+    cursor: pointer !important;
+    &:hover {
+      color: #1867c0;
+    }
+  }
+}
+
+.top-card-title, .job-action {
+  .company-name, .v-avatar {
+    cursor: pointer;
   }
 }
 </style>

@@ -123,10 +123,10 @@ export default {
     jobImg() {
       return this.data.image
         ? this.data.image
-        : this.$store.getters["common/getRandomImgUrl"](730, 250);
+        : this.getRandomImgUrl(730, 250);
     },
     UpdateTime() {
-      return this.$store.getters["common/getLastUpdate"](this.data.createDate);
+      return this.getLastUpdate(this.data.createDate);
     }
   },
   watch: {},

@@ -27,11 +27,11 @@
 </template>
 
 <script>
+import MenuBarMainPage from "../Common/MenuBarMainPage";
+
 import JobFilter from "./JobFilter";
 import JobList from "./JobList";
 import HomeRightPanel from "./HomeRightPanel";
-
-import MenuBarMainPage from "../Common/MenuBarMainPage";
 
 export default {
   components: {

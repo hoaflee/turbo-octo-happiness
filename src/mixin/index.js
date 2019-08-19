@@ -10,6 +10,11 @@ export default {
   //   this.isMobile = vuetify.breakpoint.smAndDown
   //   console.log('Printing from the Mixin')
   // },
+  mounted() {
+    this.$nextTick(() => {
+      window.scrollTo(0,0);
+		});
+  },
   methods: {
     getRandomImgUrl: (w,h) => {
       let url = 'https://picsum.photos/' + w + '/' + h + '?random=' +  Math.floor(Math.random() * 10 + 1);

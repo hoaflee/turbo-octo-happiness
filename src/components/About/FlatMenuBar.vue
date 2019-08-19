@@ -37,15 +37,15 @@ export default {
     goHome() {
       this.$router.push({ path: `/` })
     },
-    scrollToTop() {
-      window.scrollTo(0,0);
-    }
+    // scrollToTop() {
+    //   window.scrollTo(0,0);
+    // }
   },
-  mounted() {
-    this.$nextTick(() => {
-			this.scrollToTop();
-		});
-  },
+  // mounted() {
+  //   this.$nextTick(() => {
+	// 		this.scrollToTop();
+	// 	});
+  // },
 };
 </script>
 

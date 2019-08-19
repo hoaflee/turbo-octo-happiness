@@ -2,16 +2,34 @@
   <div>
     <v-app-bar class="main-app-bar" app>
       <div class="text-center mr-4 premival-icon">
-        <img height="40" src="@/assets/logo_v3_64.png/" alt="Premival" @click="goHome()">
+        <img height="40" src="@/assets/logo_v3_64.png/" alt="Premival" @click="goHome()" />
       </div>
       <v-toolbar-title class="headline hidden-sm-and-down" @click="goHome()">
         <span>Premival</span>
       </v-toolbar-title>
 
       <v-toolbar-items class="ml-4 mr-4 toolbar-items-menu hidden-sm-and-down">
-        <v-btn text large color="primary">News Feed</v-btn>
-        <v-btn text large color="primary">Company Reviews</v-btn>
-        <v-btn text large color="primary">Find Salaries</v-btn>
+        <v-btn
+          text
+          large
+          color="primary"
+          :class="{ active: routeName == 'home' }"
+          @click="goHome()"
+        >Find Jobs</v-btn>
+        <v-btn
+          text
+          large
+          color="primary"
+          :class="{ active: routeName == 'CompanyReviews' }"
+          @click="$router.push({ path: `/features/company-reviews` })"
+        >Company Reviews</v-btn>
+        <v-btn
+          text
+          large
+          color="primary"
+          :class="{ active: routeName == 'FindSalaries' }"
+          @click="$router.push({ path: `/features/find-salaries` })"
+        >Find Salaries</v-btn>
       </v-toolbar-items>
 
       <v-autocomplete
@@ -129,6 +147,9 @@ export default {
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.smAndDown;
+    },
+    routeName() {
+      return this.$route.name;
     }
   },
   watch: {
@@ -137,11 +158,11 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$vuetify.breakpoint)
+    this.$nextTick(() => {});
   },
   methods: {
     goHome() {
-      this.$router.push({ path: `/` })
+      this.$router.push({ path: `/` });
     },
     querySelections(v) {
       this.loading = true;
@@ -162,7 +183,8 @@ export default {
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  .v-toolbar__title, .premival-icon {
+  .v-toolbar__title,
+  .premival-icon {
     cursor: pointer;
   }
 }
@@ -171,6 +193,9 @@ export default {
   .v-btn {
     text-transform: unset;
     letter-spacing: unset;
+    &.active {
+      border-bottom: 2px solid #1497ff;
+    }
   }
 
   .v-btn:not(.v-btn--round).v-size--large {

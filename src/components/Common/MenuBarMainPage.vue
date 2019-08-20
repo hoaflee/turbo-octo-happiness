@@ -4,16 +4,19 @@
       <div class="text-center mr-4 premival-icon">
         <img height="40" src="@/assets/logo_v3_64.png/" alt="Premival" @click="goHome()" />
       </div>
-      <v-toolbar-title class="headline hidden-sm-and-down" @click="goHome()">
-        <span>Premival</span>
-      </v-toolbar-title>
+      <v-badge color="red" class="logo-badge">
+        <template v-slot:badge>Demo</template>
+        <v-toolbar-title class="headline hidden-sm-and-down" @click="goHome()">
+          <span>Premival</span>
+        </v-toolbar-title>
+      </v-badge>
 
-      <v-toolbar-items class="ml-4 mr-4 toolbar-items-menu hidden-sm-and-down">
+      <v-toolbar-items class="ml-12 mr-4 toolbar-items-menu hidden-sm-and-down">
         <v-btn
           text
           large
           color="primary"
-          :class="{ active: routeName == 'home' }"
+          :class="{ active: !['CompanyReviews','FindSalaries'].includes(routeName) }"
           @click="goHome()"
         >Find Jobs</v-btn>
         <v-btn
@@ -34,18 +37,22 @@
 
       <v-autocomplete
         class="search"
-        v-model="select"
-        :loading="loading"
+        v-model="model"
         :items="items"
+        :loading="loading"
         :search-input.sync="search"
         cache-items
+        item-text="description"
+        item-value="title"
         append-icon="mdi-magnify"
+        clear-icon="mdi-close"
         flat
         hide-no-data
         hide-details
         clearable
         label="Search people, jobs and companies"
         solo
+        return-object
       ></v-autocomplete>
 
       <v-spacer></v-spacer>
@@ -67,6 +74,8 @@
 </template>
 
 <script>
+const htmlToText = require("html-to-text");
+
 import UserMenu from "./UserMenu";
 import Footer from "./Footer";
 
@@ -79,9 +88,12 @@ export default {
   data: () => ({
     activeBtn: 1,
     loading: false,
-    items: [],
+    // items: [],
+    entries: [],
+    model: null,
     search: null,
     select: null,
+    descriptionLimit: 60,
     states: [
       "Alabama",
       "Alaska",
@@ -150,12 +162,71 @@ export default {
     },
     routeName() {
       return this.$route.name;
-    }
+    },
+    // fields () {
+    //   if (!this.model) return []
+    //   return Object.keys(this.model).map(key => {
+    //     return {
+    //       key,
+    //       value: this.model[key] || 'n/a',
+    //     }
+    //   })
+    // },
+    items () {
+      return this.entries.map(entry => {
+        entry.description = htmlToText.fromString(entry.description, {
+          wordwrap: 130
+        });
+        const description = entry.description.length > this.descriptionLimit
+          ? entry.description.slice(0, this.descriptionLimit) + '...'
+          : entry.description
+
+        return Object.assign({}, entry, { description })
+      })
+    },
   },
   watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    }
+
+    search (val) {
+      // Items have already been loaded
+      if (this.items.length > 0) return
+
+      // Items have already been requested
+      if (this.isLoading) return
+
+      this.isLoading = true
+
+      // Lazily load input items
+      const postData = {
+        currentPageIndex: 0,
+        langId: null,
+        pageSize: 10,
+        profileId: ""
+      };
+      this.$http
+        .post("https://api.premival.com/job", postData)
+        .then(response => {
+          this.entries = response.data.datas.jobDetails;
+          this.count = this.entries.length;
+          // this.items = response.data.datas.jobDetails;
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => (this.loading = false));
+
+      // fetch('https://api.publicapis.org/entries')
+      //   .then(res => res.json())
+      //   .then(res => {
+      //     const { count, entries } = res
+      //     this.count = count
+      //     this.entries = entries
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
+        
+    },
   },
   mounted() {
     this.$nextTick(() => {});
@@ -189,10 +260,19 @@ export default {
   }
 }
 
+.logo-badge .v-badge__badge {
+  border-radius: 3px;
+  top: -5px;
+  right: -40px;
+  font-size: 11px;
+  height: 18px;
+}
+
 .toolbar-items-menu {
   .v-btn {
     text-transform: unset;
     letter-spacing: unset;
+    font-weight: 600;
     &.active {
       border-bottom: 2px solid #1497ff;
     }

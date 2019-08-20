@@ -1,27 +1,29 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
 export default {
-  components: {
-  },
+  props: ["data"],
+  components: {},
   data: () => ({}),
   computed: {
-    example () {
+    example() {
       return null;
     }
   },
   watch: {
-    example(val) {
+    example(val) {},
+    item: {
+      handler(val) {
+        // do stuff
+      },
+      deep: true
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {});
   },
   methods: {
-    example(val) {
-    }
+    example(val) {}
   }
 };
 </script>

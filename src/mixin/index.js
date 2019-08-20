@@ -6,18 +6,19 @@ export default {
   // data() {
   //   isMobile: false
   // },
-  // created: function () {
-  //   this.isMobile = vuetify.breakpoint.smAndDown
-  //   console.log('Printing from the Mixin')
-  // },
+  created: () => {
+    // window.scrollTo(0,0);
+    // this.isMobile = vuetify.breakpoint.smAndDown
+    // console.log('Printing from the Mixin')
+  },
   mounted() {
     this.$nextTick(() => {
-      window.scrollTo(0,0);
-		});
+      // window.scrollTo(0,0);
+    });
   },
   methods: {
-    getRandomImgUrl: (w,h) => {
-      let url = 'https://picsum.photos/' + w + '/' + h + '?random=' +  Math.floor(Math.random() * 10 + 1);
+    getRandomImgUrl: (w, h) => {
+      let url = 'https://picsum.photos/' + w + '/' + h + '?random=' + Math.floor(Math.random() * 10 + 1);
       return url;
     },
     randomAvtUrl() {
@@ -165,18 +166,25 @@ export default {
           "ShortHairTheCaesarSidePart"
         ]
       };
-    
+
       let avatarUrl = "https://avataaars.io/?";
       for (const [key, value] of Object.entries(atts)) {
         avatarUrl = avatarUrl + key + "=" + _.sample(value) + "&";
       }
-    
+
       return avatarUrl;
     },
     getLastUpdate: (updatedAt) => {
       let timeString = moment(updatedAt).fromNow()
       return timeString
     },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+    ownerAvatarUrl(profileId, ownerAvatar) {
+      return "https://scontent.premival.com/images/users/" +
+        profileId + "/" + ownerAvatar;
+    }
   },
   // computed: {
   //   isMobile() {
@@ -187,7 +195,7 @@ export default {
   //   this.$nextTick(() => {
   //     // console.log(document.querySelectorAll(".dropdown-button"));
   //     this.isMobile = vuetify.breakpoint.smAndDown;
-	// 	});
+  // 	});
   // },
 }
 

@@ -43,8 +43,9 @@
           <JobItem
             :key="'item_' + idx"
             :data="item"
-            @openDialog="jobDetail"
-            @goToComPage="toComPage(item.profileId, item.ownerName)"/>
+            @goToJobPage="toJobDetail(item)"
+            @goToComPage="toComPage(item)"
+          />
           <v-divider :key="'divider_' + idx" class="mb-8" v-if="idx <= jobItems.length - 2"></v-divider>
         </template>
       </v-flex>
@@ -52,35 +53,43 @@
       <v-divider></v-divider>
 
       <v-flex xs12 md12 sm12 pt-6 v-if="!loading">
-        <div class="text-center">
-          <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
+        <div class="text-center paginations">
+          <v-pagination
+            next-icon="mdi-chevron-right"
+            prev-icon="mdi-chevron-left"
+            v-model="page"
+            :length="15"
+            :total-visible="7"
+          ></v-pagination>
         </div>
       </v-flex>
     </v-layout>
 
-    <v-dialog scrollable :fullscreen="isMobile" v-model="jobDialogDetail" width="50%">
+    <!-- <v-dialog scrollable :fullscreen="isMobile" v-model="jobDialogDetail" width="50%">
       <JobDetailCard
         :data="JobDetailCardData"
         @goToComPage="toComPage(JobDetailCardData.profileId, JobDetailCardData.ownerName)"
         @closeDialog="jobDialogDetail = !jobDialogDetail" />
-    </v-dialog>
+    </v-dialog>-->
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
 import JobItem from "../Common/JobItem";
-import JobDetailCard from "../Common/JobDetailCard";
+// import JobDetailCard from "../Common/JobDetailCard";
 
 export default {
-  components: { JobItem, JobDetailCard },
+  components: {
+    JobItem
+    // JobDetailCard
+  },
   data: () => ({
     jobDialogDetail: false,
     loading: true,
     jobItems: [],
     // currentPageIndex: 0,
-    page: 1,
-    JobDetailCardData: {}
+    page: 1
+    // JobDetailCardData: {}
   }),
   computed: {
     isMobile() {
@@ -95,15 +104,19 @@ export default {
     }
   },
   methods: {
-    toComPage(comId, comName) {
+    toComPage(item) {
       // alert(profileId);
-      let name = encodeURIComponent(comName);
-      this.$router.push({ path: `/company/${comId}/${name}` });
+      let name = encodeURIComponent(item.ownerName);
+      this.$router.push({ path: `/company/${item.profileId}/${name}` });
     },
-    jobDetail(data) {
-      this.JobDetailCardData = data;
-      console.log(this.JobDetailCardData);
-      this.jobDialogDetail = true;
+    // jobDetail(data) {
+    //   this.JobDetailCardData = data;
+    //   console.log(this.JobDetailCardData);
+    //   this.jobDialogDetail = true;
+    // },
+    toJobDetail(data) {
+      let jobTitle = encodeURIComponent(data.title);
+      this.$router.push({ path: `/job/${data.id}/${jobTitle}` });
     },
     scrollToTop() {
       window.scrollTo(0, 0);
@@ -115,7 +128,7 @@ export default {
         pageSize: 10,
         profileId: ""
       };
-      axios
+      this.$http
         .post("https://api.premival.com/job", postData)
         .then(response => {
           this.jobItems = response.data.datas.jobDetails;
@@ -209,8 +222,7 @@ export default {
 </style>
 
 <style lang="scss">
-.job-item,
-.job-card-detail {
+.job-item {
   .job-pannel {
     cursor: pointer;
     &:hover,
@@ -265,9 +277,18 @@ export default {
   }
 }
 
-.top-card-title, .job-action {
-  .company-name, .v-avatar {
+.top-card-title,
+.job-action {
+  .company-name,
+  .v-avatar {
     cursor: pointer;
+  }
+}
+
+.paginations {
+  .v-pagination__item {
+    box-shadow: unset !important;
+    -webkit-box-shadow: unset !important;
   }
 }
 </style>

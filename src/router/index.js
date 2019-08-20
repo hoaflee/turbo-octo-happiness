@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/Home/index.vue'
 import JobDetail from '@/components/Job/index.vue'
 import CompanyHomePage from '@/components/Company/index.vue'
@@ -27,13 +28,13 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/job/:id/:jobTitle',
+          path: 'job/:id/:jobTitle',
           name: 'jobDetail',
           component: JobDetail
         },
         {
-          path: '/company/:id/:name',
-          name: 'Company',
+          path: 'company/:id/:name',
+          name: 'company',
           component: CompanyHomePage
         }
       ],

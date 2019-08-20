@@ -14,18 +14,18 @@
 
     <v-card outlined class="recommend mt-4">
       <v-card-title>
-        <h4>Recommend (25)</h4>
+        <h4>Recommend (15)</h4>
       </v-card-title>
       <v-divider></v-divider>
 
       <v-card-title>
         <v-btn block large dark class="btn-recommed mb-1" color="primary" depressed>
-          <v-icon left>mdi-thumb-up-outline</v-icon>Recommned (25)
+          <v-icon left>mdi-thumb-up-outline</v-icon>Recommned (15)
         </v-btn>
         <div class="entry-info-2">How does the 'Recommend' button work?</div>
         <div class="my-2">
           <v-avatar
-            v-for="i in 21"
+            v-for="i in 15"
             :key="i"
             height="40"
             width="40"
@@ -55,7 +55,7 @@
 
     <v-card outlined class="more-job mt-4">
       <v-card-title>
-        <h4>More job from TNHH PREMIVAL</h4>
+        <h4>More job from {{data.ownerName}}</h4>
       </v-card-title>
       <v-divider></v-divider>
 
@@ -92,6 +92,7 @@
 import GoogleMap from "@/components/Common/GoogleMap";
 
 export default {
+  props: ["data"],
   components: {
     GoogleMap
   },
@@ -183,6 +184,9 @@ export default {
   .recommend {
     .v-card__title {
       line-height: unset;
+    }
+    .v-avatar {
+      cursor: pointer;
     }
   }
   .more-job {

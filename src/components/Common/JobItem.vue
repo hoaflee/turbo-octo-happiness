@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="mx-auto mb-4 job-item">
-    <div class="job-pannel" @click="openJobDetail()">
+    <div class="job-pannel" @click="$emit('goToJobPage')">
       <v-img class="white--text" height="250px" :src="jobImg">
         <template v-slot:placeholder>
           <v-layout fill-height align-center justify-center ma-0>
@@ -134,17 +134,17 @@ export default {
     console.log(this.data);
   },
   methods: {
-    goToCompanyPage() {
-      // let title = encodeURIComponent(this.data.title);
-      // this.$router.push({ path: `/job/${this.data.id}/${title}` });
-    },
-    openJobDetail() {
-      this.data.jobTag = this.jobTag;
-      this.data.jobImg = this.jobImg;
-      this.data.ownerAvatar = this.ownerAvatar;
-      this.data.UpdateTime = this.UpdateTime;
-      this.$emit("openDialog", this.data);
-    }
+    // goToCompanyPage() {
+    //   // let title = encodeURIComponent(this.data.title);
+    //   // this.$router.push({ path: `/job/${this.data.id}/${title}` });
+    // },
+    // openJobDetail() {
+    //   this.data.jobTag = this.jobTag;
+    //   this.data.jobImg = this.jobImg;
+    //   this.data.ownerAvatar = this.ownerAvatar;
+    //   this.data.UpdateTime = this.UpdateTime;
+    //   this.$emit("openDialog", this.data);
+    // }
   }
 };
 </script>

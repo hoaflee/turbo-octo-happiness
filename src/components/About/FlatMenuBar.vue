@@ -1,16 +1,16 @@
 <template>
   <div class="white-background-content">
-    <v-app-bar
-      flat
-      absolute
-      color="white"
-      class="about-menu-bar"
-    >
+    <v-app-bar flat absolute color="white" class="about-menu-bar">
       <div class="text-center mr-4 premival-icon" @click="goHome()">
-        <img height="40" src="@/assets/logo_v3_64.png/" alt="Premival">
+        <img height="40" src="@/assets/logo_v3_64.png/" alt="Premival" />
       </div>
 
-      <v-toolbar-title class="headline" @click="goHome()">Premival</v-toolbar-title>
+      <v-badge color="red" class="logo-badge">
+        <template v-slot:badge>Demo</template>
+        <v-toolbar-title class="headline hidden-sm-and-down" @click="goHome()">
+          <span>Premival</span>
+        </v-toolbar-title>
+      </v-badge>
     </v-app-bar>
 
     <v-container class="mt-12">
@@ -25,7 +25,6 @@
         <a href="/">Home</a>
       </div>
     </footer>
-
   </div>
 </template>
 
@@ -35,17 +34,17 @@ export default {
   data: () => ({}),
   methods: {
     goHome() {
-      this.$router.push({ path: `/` })
-    },
+      this.$router.push({ path: `/` });
+    }
     // scrollToTop() {
     //   window.scrollTo(0,0);
     // }
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-	// 		this.scrollToTop();
-	// 	});
-  // },
+  mounted() {
+    this.$nextTick(() => {
+      window.scrollTo(0, 0);
+    });
+  }
 };
 </script>
 
@@ -53,7 +52,8 @@ export default {
 .white-background-content {
   background: white;
   .about-menu-bar {
-    .v-toolbar__title, .premival-icon {
+    .v-toolbar__title,
+    .premival-icon {
       cursor: pointer;
     }
   }
@@ -79,7 +79,8 @@ footer {
 
 .markdown-body {
   // font-family: "Lato", sans-serif;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
   font-size: 14px;
   line-height: 1.72;
   color: rgba(0, 0, 0, 0.84);
@@ -115,5 +116,4 @@ footer {
     color: #0465a7;
   }
 }
-
 </style>

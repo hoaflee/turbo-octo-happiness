@@ -22,12 +22,17 @@
           </v-flex>
         </v-layout>
       </v-container>
+      <div v-if="isJobDetailPage && !isMobile">
+        <v-divider class="mt-6"></v-divider>
+        <JobGroup/>
+      </div>
     </template>
   </MenuBarMainPage>
 </template>
 
 <script>
 import MenuBarMainPage from "../Common/MenuBarMainPage";
+import JobGroup from "../Common/JobGroup";
 
 import JobFilter from "./JobFilter";
 import JobList from "./JobList";
@@ -36,6 +41,7 @@ import HomeRightPanel from "./HomeRightPanel";
 export default {
   components: {
     MenuBarMainPage,
+    JobGroup,
     JobFilter,
     JobList,
     HomeRightPanel
@@ -45,11 +51,17 @@ export default {
     isHomePage () {
       if (this.$route.name == 'home') return true;
       return false;
+    },
+    isJobDetailPage() {
+      if (this.$route.name == 'jobDetail') return true;
+      return false;
+    },
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
     }
   },
   mounted() {
     this.$nextTick(() => {
-      // console.log(this.$route);
       window.scrollTo(0,0);
 		});
   },

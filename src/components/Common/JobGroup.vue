@@ -12,7 +12,7 @@
       <v-slide-item v-for="(item, idx) in jobItems" :key="idx">
         <v-hover v-slot:default="{ hover }">
           <v-card
-            :elevation="hover ? 10 : 0"
+            :elevation="hover ? 5 : 0"
             flat
             class="ma-4 job-group-card-item"
             height="200"

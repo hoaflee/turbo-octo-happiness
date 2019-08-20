@@ -57,7 +57,7 @@
         <InfoTable :data="data" />
       </v-flex>
 
-      <v-flex md12>
+      <v-flex md12 class="mt-4">
         <v-layout wrap>
           <v-row align="center" justify="center">
             <v-col lg="6" md="12" sm="12">

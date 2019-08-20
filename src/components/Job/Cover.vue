@@ -69,7 +69,7 @@
         </v-flex>
         <v-flex md5 sm12 class="company-recommed">
           <v-btn tile dark class="float-md-right btn-recommed" color="primary" depressed>
-            <v-icon left>mdi-thumb-up-outline</v-icon>Recommned (25)
+            <v-icon left class="ml-1">mdi-thumb-up-outline</v-icon>Recommned (25)
           </v-btn>
 
           <v-btn tile dark class="float-md-right mx-2" color="error" depressed>

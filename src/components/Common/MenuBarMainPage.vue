@@ -214,7 +214,7 @@ export default {
   .v-btn {
     text-transform: unset;
     letter-spacing: unset;
-    font-weight: 600;
+    font-weight: 500;
     &.active {
       border-bottom: 2px solid #1497ff;
     }
